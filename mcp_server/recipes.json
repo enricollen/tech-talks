@@ -1,0 +1,75 @@
+{
+  "Lasagna": {
+    "ingredients": [
+      "12 lasagna noodles",
+      "1 lb ground beef",
+      "1 onion, chopped",
+      "3 cloves garlic, minced",
+      "28 oz crushed tomatoes",
+      "2 tbsp tomato paste",
+      "2 cups ricotta cheese",
+      "2 cups mozzarella cheese, shredded",
+      "1 cup parmesan cheese, grated",
+      "1 egg",
+      "fresh basil",
+      "salt and pepper to taste"
+    ],
+    "instructions": "1. preheat oven to 375°f (190°c). 2. cook lasagna noodles according to package directions. 3. in a large pan, cook ground beef with onion and garlic until browned. 4. add crushed tomatoes and tomato paste, simmer for 15 minutes. 5. mix ricotta cheese with egg and half of the parmesan. 6. in a baking dish, layer: sauce, noodles, ricotta mixture, mozzarella. repeat layers. 7. top with remaining mozzarella and parmesan. 8. cover with foil and bake for 25 minutes. 9. remove foil and bake another 15 minutes until golden. 10. let rest 10 minutes before serving."
+  },
+  "Pasta Carbonara": {
+    "ingredients": [
+      "400g spaghetti",
+      "200g guanciale or pancetta, diced",
+      "4 large egg yolks",
+      "1 whole egg",
+      "100g pecorino romano cheese, grated",
+      "black pepper",
+      "salt"
+    ],
+    "instructions": "1. bring a large pot of salted water to boil and cook spaghetti until al dente. 2. while pasta cooks, fry guanciale in a pan until crispy. 3. in a bowl, whisk together egg yolks, whole egg, and pecorino cheese. 4. reserve 1 cup of pasta water, then drain pasta. 5. remove pan from heat and add hot pasta to the guanciale. 6. quickly stir in egg mixture, adding pasta water gradually to create a creamy sauce. 7. season generously with black pepper. 8. serve immediately with extra pecorino."
+  },
+  "Pizza Margherita": {
+    "ingredients": [
+      "pizza dough (500g)",
+      "400g san marzano tomatoes, crushed",
+      "300g fresh mozzarella, sliced",
+      "fresh basil leaves",
+      "extra virgin olive oil",
+      "salt"
+    ],
+    "instructions": "1. preheat oven to maximum temperature (at least 475°f/250°c). 2. stretch pizza dough into a round shape. 3. spread crushed tomatoes evenly, leaving a border for the crust. 4. add salt to taste. 5. tear mozzarella and distribute evenly on the pizza. 6. drizzle with olive oil. 7. bake for 10-12 minutes until crust is golden and cheese is bubbly. 8. remove from oven and top with fresh basil leaves. 9. drizzle with more olive oil and serve immediately."
+  },
+  "Risotto alla Milanese": {
+    "ingredients": [
+      "350g arborio rice",
+      "1 liter chicken or vegetable broth, warm",
+      "1 small onion, finely chopped",
+      "100ml dry white wine",
+      "0.5g saffron threads",
+      "80g butter",
+      "80g parmesan cheese, grated",
+      "2 tbsp olive oil",
+      "salt"
+    ],
+    "instructions": "1. dissolve saffron in 2 tbsp of warm broth and set aside. 2. in a large pan, heat olive oil and half the butter. 3. sauté onion until translucent. 4. add rice and toast for 2 minutes, stirring constantly. 5. pour in wine and stir until absorbed. 6. add broth one ladle at a time, stirring frequently, waiting for each addition to be absorbed. 7. after 15 minutes, add the saffron mixture. 8. continue adding broth and stirring until rice is creamy and al dente (about 18-20 minutes total). 9. remove from heat, stir in remaining butter and parmesan. 10. let rest 2 minutes before serving."
+  },
+  "Tiramisu": {
+    "ingredients": [
+      "6 egg yolks",
+      "150g sugar",
+      "500g mascarpone cheese",
+      "300ml strong espresso, cooled",
+      "3 tbsp marsala wine or rum",
+      "300g ladyfinger cookies (savoiardi)",
+      "unsweetened cocoa powder for dusting",
+      "dark chocolate shavings (optional)"
+    ],
+    "instructions": "1. whisk egg yolks and sugar in a bowl over simmering water until thick and pale. 2. remove from heat and let cool slightly. 3. fold in mascarpone cheese until smooth. 4. mix espresso with marsala in a shallow dish. 5. quickly dip ladyfingers in coffee mixture (don't soak them). 6. arrange a layer of dipped ladyfingers in a dish. 7. spread half the mascarpone mixture over ladyfingers. 8. repeat with another layer of ladyfingers and remaining mascarpone. 9. cover and refrigerate for at least 4 hours or overnight. 10. before serving, dust generously with cocoa powder and add chocolate shavings if desired."
+  }
+}
+
+
+
+
+
+

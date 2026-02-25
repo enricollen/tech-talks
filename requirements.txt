@@ -1,0 +1,6 @@
+gradio[mcp]
+textblob
+llama-index-core
+llama-index-llms-openai
+llama-index-tools-mcp
+mcp[cli]
