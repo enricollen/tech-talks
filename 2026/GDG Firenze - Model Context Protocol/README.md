@@ -81,7 +81,12 @@ Dimostra come:
 - Autenticazione con header HTTP
 - Aggregazione di strumenti da fonti multiple
 
+
 ### 2. Server MCP Personalizzato (`mcp_server/mcp_server.py`)
+
+##### Server MCP Locale - Ricette Italiane
+
+<img src="images/recipes.jpg" width="200">
 
 Implementazione di un server MCP usando FastMCP che espone:
 
@@ -143,11 +148,19 @@ docker_client = BasicMCPClient(
 )
 ```
 
+##### Agente con Docker Gateway (Trascrizione Video YouTube)
+
+<img src="images/docker_mcp_server.png" width="280">
+
 #### b) Connessione a Server Locale
 
 ```python
 local_client = BasicMCPClient("http://localhost:8000/mcp")
 ```
+
+##### Agente con Server Locale (Ricette)
+
+<img src="images/local_mcp_server.png" width="280">
 
 #### c) Connessione a FastMCP Cloud
 
@@ -155,11 +168,19 @@ local_client = BasicMCPClient("http://localhost:8000/mcp")
 remote_client = BasicMCPClient("https://unnecessary-crimson-wildebeest.fastmcp.app/mcp")
 ```
 
+##### Agente con Server Remoto FastMCP Cloud (Meteo)
+
+<img src="images/remote_weather_mcp_server.png" width="280">
+
 #### d) Connessione a Hugging Face Space
 
 ```python
 gradio_client = BasicMCPClient("https://hysts-mcp-flux-1-schnell.hf.space/gradio_api/mcp/")
 ```
+
+##### Agente con Hugging Face Space (Generazione Immagini)
+
+<img src="images/hf_mcp_server.png" width="280">
 
 **Esecuzione:**
 
@@ -168,6 +189,10 @@ python mcp_client/mcp_client.py
 ```
 
 ### 5. Agente Ibrido (`mcp_client/mcp_client.py` - `hybrid_mcp_agent()`)
+
+##### Agente Ibrido - 4 Sorgenti MCP Combinate
+
+<img src="images/hybrid_agent.png" width="400">
 
 Dimostra un agente che combina strumenti da **4 fonti MCP diverse**:
 
@@ -195,6 +220,14 @@ TriageAgent (router)
     ├── VideoAgent (strumenti trascrizione Docker Gateway)
     └── ImageAgent (strumenti generazione immagini Hugging Face)
 ```
+
+##### Orchestratore e Flusso di Handoff
+
+<img src="images/orchestrator.png" width="200" height ="300">
+
+##### Architettura Multi-Agente con Triage
+
+<img src="images/swarm_agents.jpg" width="400">
 
 **Vantaggi:**
 
