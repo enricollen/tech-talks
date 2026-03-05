@@ -79,10 +79,20 @@ async def docker_mcp_servers_gateway():
     #print(tools)
     
     llm = OpenAI(model="gpt-4o-mini", api_key=OPENAI_API_KEY)
-    agent = ReActAgent(tools=tools, llm=llm, verbose=True)
+    agent = ReActAgent(tools=tools, llm=llm)
     
-    response = await agent.run(user_msg="get me a transcript of the video at https://www.youtube.com/watch?v=Fhy_VFMlE9s?") # "fetch the latest news from the web page https://www.lastampa.it/")
-    print(response)
+    query = "get me a transcript of the video at https://www.youtube.com/watch?v=Fhy_VFMlE9s?"
+    print(f"\n>>> query: {query}\n")
+    handler = agent.run(user_msg=query)
+    
+    async for ev in handler.stream_events():
+        if isinstance(ev, AgentStream):
+            print(ev.delta, end="", flush=True)
+        elif isinstance(ev, ToolCallResult):
+            print(f"\n[tool call: {ev.tool_name} | args: {ev.tool_kwargs}]")
+    
+    response = await handler
+    print(f"\n\nAgent response: {response}")
 
 async def local_mcp_server():
     client = BasicMCPClient("http://localhost:8000/mcp")
@@ -112,11 +122,20 @@ async def local_mcp_server():
         tools = []
     
     llm = OpenAI(model="gpt-4o-mini", api_key=OPENAI_API_KEY)
-    agent = ReActAgent(tools=tools, llm=llm, verbose=True)
+    agent = ReActAgent(tools=tools, llm=llm)
     
-    print("\nAgent run:")
-    response = await agent.run(user_msg="Whats the recipe for pizza margherita?")
-    print(f"\nAgent response: {response}")
+    query = "Whats the recipe for pizza margherita?"
+    print(f"\n>>> query: {query}\n")
+    handler = agent.run(user_msg=query)
+    
+    async for ev in handler.stream_events():
+        if isinstance(ev, AgentStream):
+            print(ev.delta, end="", flush=True)
+        elif isinstance(ev, ToolCallResult):
+            print(f"\n[tool call: {ev.tool_name} | args: {ev.tool_kwargs}]")
+    
+    response = await handler
+    print(f"\n\nAgent response: {response}")
 
 async def hybrid_mcp_agent():
     """
@@ -420,7 +439,6 @@ async def multiagent_triage_example():
         description="handles recipe queries and cooking instructions",
         tools=local_tools,
         llm=llm,
-        verbose=True,
         system_prompt=(
             "you are a recipe expert. you can list recipes and provide detailed cooking instructions. "
             "use your tools to answer recipe-related questions."
@@ -433,7 +451,6 @@ async def multiagent_triage_example():
         description="provides weather information for any location",
         tools=remote_tools,
         llm=llm,
-        verbose=True,
         system_prompt=(
             "you are a weather assistant. use your weather tool to provide current weather information "
             "for any location the user asks about."
@@ -446,7 +463,6 @@ async def multiagent_triage_example():
         description="transcribes youtube videos given the url",
         tools=docker_tools,
         llm=llm,
-        verbose=True,
         system_prompt=(
             "you are a video transcription specialist. you can get transcripts from youtube videos. "
             "use your tools to transcribe videos from urls."
@@ -459,7 +475,6 @@ async def multiagent_triage_example():
         description="generates images from text prompts using flux model",
         tools=gradio_tools,
         llm=llm,
-        verbose=True,
         system_prompt=(
             "you are an image generation specialist using the flux model. you can create images from text descriptions. "
             "use your tools to generate images based on user prompts."
@@ -472,7 +487,6 @@ async def multiagent_triage_example():
         description="routes user requests to the appropriate specialist agent",
         tools=[],  # no tools, just routes to other agents
         llm=llm,
-        verbose=True,
         system_prompt=(
             "you are a triage agent. your only job is to route requests to specialist agents.\n"
             "you do not have any tools to answer questions yourself - you MUST hand off every request.\n\n"
@@ -497,41 +511,57 @@ async def multiagent_triage_example():
     print("\n=== running multiagent triage workflow ===\n")
     
     # test 1: recipe query
-    print(">>> query 1: how to make tiramisu?\n")
-    resp1 = await agent_workflow.run(
-        user_msg="how to make tiramisu?"
-    )
-    print("\n--- response 1 ---")
-    print(resp1)
+    query1 = "how to make tiramisu?"
+    print(f">>> query 1: {query1}\n")
+    handler1 = agent_workflow.run(user_msg=query1)
+    async for ev in handler1.stream_events():
+        if isinstance(ev, AgentStream):
+            print(ev.delta, end="", flush=True)
+        elif isinstance(ev, ToolCallResult):
+            print(f"\n[tool call: {ev.tool_name} | args: {ev.tool_kwargs}]")
+    resp1 = await handler1
+    print(f"\n\nAgent response 1: {resp1}")
     
     # test 2: weather query
-    print("\n\n>>> query 2: what's the weather in rome?\n")
-    resp2 = await agent_workflow.run(
-        user_msg="what's the weather in rome?"
-    )
-    print("\n--- response 2 ---")
-    print(resp2)
+    query2 = "what's the weather in rome?"
+    print(f"\n\n>>> query 2: {query2}\n")
+    handler2 = agent_workflow.run(user_msg=query2)
+    async for ev in handler2.stream_events():
+        if isinstance(ev, AgentStream):
+            print(ev.delta, end="", flush=True)
+        elif isinstance(ev, ToolCallResult):
+            print(f"\n[tool call: {ev.tool_name} | args: {ev.tool_kwargs}]")
+    resp2 = await handler2
+    print(f"\n\nAgent response 2: {resp2}")
     
     # test 3: video transcription query
-    print("\n\n>>> query 3: get transcript from https://www.youtube.com/watch?v=Fhy_VFMlE9s\n")
-    resp3 = await agent_workflow.run(
-        user_msg="get transcript from https://www.youtube.com/watch?v=Fhy_VFMlE9s"
-    )
-    print("\n--- response 3 ---")
-    print(resp3)
+    query3 = "get transcript from https://www.youtube.com/watch?v=Fhy_VFMlE9s"
+    print(f"\n\n>>> query 3: {query3}\n")
+    handler3 = agent_workflow.run(user_msg=query3)
+    async for ev in handler3.stream_events():
+        if isinstance(ev, AgentStream):
+            print(ev.delta, end="", flush=True)
+        elif isinstance(ev, ToolCallResult):
+            print(f"\n[tool call: {ev.tool_name} | args: {ev.tool_kwargs}]")
+    resp3 = await handler3
+    print(f"\n\nAgent response 3: {resp3}")
     
     # test 4: image generation query
-    print("\n\n>>> query 4: generate an image of a sunset over mountains\n")
-    resp4 = await agent_workflow.run(
-        user_msg="generate an image of a sunset over mountains"
-    )
-    print("\n--- response 4 ---")
-    print(resp4)
+    query4 = "generate an image of a sunset over mountains"
+    print(f"\n\n>>> query 4: {query4}\n")
+    handler4 = agent_workflow.run(user_msg=query4)
+    async for ev in handler4.stream_events():
+        if isinstance(ev, AgentStream):
+            print(ev.delta, end="", flush=True)
+        elif isinstance(ev, ToolCallResult):
+            print(f"\n[tool call: {ev.tool_name} | args: {ev.tool_kwargs}]")
+    resp4 = await handler4
+    print(f"\n\nAgent response 4: {resp4}")
 
  
 if __name__ == "__main__":
-    #asyncio.run(docker_mcp_servers_gateway())
+    asyncio.run(docker_mcp_servers_gateway())
     #asyncio.run(local_mcp_server())
     #asyncio.run(hybrid_mcp_agent())
     #asyncio.run(agent_example_huggingface_space())
-    asyncio.run(multiagent_triage_example())
+    #asyncio.run(multiagent_triage_example())
